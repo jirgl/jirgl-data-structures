@@ -1,4 +1,4 @@
-﻿import { Structure as KdRangeTree } from '../../../src/models/trees/kdRangeTree';
+﻿import { Structure as KdRangeTree } from '../../src/trees/kdRangeTree';
 
 describe('Range tree', function () {
     let rangeTree;

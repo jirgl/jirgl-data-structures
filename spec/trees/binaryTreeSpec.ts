@@ -1,4 +1,4 @@
-import { Structure as BinaryTree, TreeTraversal } from '../../../src/models/trees/binaryTree';
+import { Structure as BinaryTree, TreeTraversal } from '../../src/trees/binaryTree';
 
 describe('Binary tree', function () {
     describe('Add methods', function () {

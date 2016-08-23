@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/jirgl/jirgl-structures#readme",
   "devDependencies": {
-    "jasmine": "^2.4.1"
+    "jasmine-es6": "^0.2.2"
   }
 }
