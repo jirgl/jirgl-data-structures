@@ -1,4 +1,4 @@
-﻿import { Structure as KdRangeTree } from '../../src/trees/kdRangeTree';
+﻿import { KdRangeTree } from '../../src/trees/kdRangeTree';
 
 describe('Range tree', function () {
     let rangeTree;
@@ -13,7 +13,7 @@ describe('Range tree', function () {
     let f = { data: 'F', ranges: [38, 52] };
 
     beforeEach(function () {
-        rangeTree = new KdRangeTree();
+        rangeTree = new KdRangeTree.Structure();
     });
 
     function checkSubtree(outputSubtree, expectedSubtree) {

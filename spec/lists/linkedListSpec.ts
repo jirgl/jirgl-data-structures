@@ -1,11 +1,11 @@
-import { Structure as LinkedList } from '../../src/lists/linkedList';
+import { LinkedList } from '../../src/lists/linkedList';
 
 describe('Linked list', function () {
     describe('Add methods', function () {
         let linkedList;
 
         beforeEach(function () {
-            linkedList = new LinkedList();
+            linkedList = new LinkedList.Structure();
         });
 
         it('add first item', function () {
@@ -91,7 +91,7 @@ describe('Linked list', function () {
         let linkedList;
 
         beforeEach(function () {
-            linkedList = new LinkedList();
+            linkedList = new LinkedList.Structure();
         });
 
         it('find unique item', function () {
@@ -127,7 +127,7 @@ describe('Linked list', function () {
         let linkedList;
 
         beforeEach(function () {
-            linkedList = new LinkedList();
+            linkedList = new LinkedList.Structure();
             linkedList.addLastItem('one', 'dataOfOne');
             linkedList.addLastItem('two', 'dataOfTwo');
             linkedList.addLastItem('three', 'dataOfThree');
@@ -164,7 +164,7 @@ describe('Linked list', function () {
         let linkedList;
 
         beforeEach(function () {
-            linkedList = new LinkedList();
+            linkedList = new LinkedList.Structure();
             linkedList.addLastItem('one', 'dataOfOne');
             linkedList.addLastItem('two', 'dataOfTwo');
             linkedList.addLastItem('three', 'dataOfThree');
@@ -261,7 +261,7 @@ describe('Linked list', function () {
         let linkedList;
 
         beforeEach(function () {
-            linkedList = new LinkedList();
+            linkedList = new LinkedList.Structure();
         });
 
         it('clear linked list', function () {
@@ -285,7 +285,7 @@ describe('Linked list', function () {
         let linkedList;
 
         beforeEach(function () {
-            linkedList = new LinkedList();
+            linkedList = new LinkedList.Structure();
         });
 
         it('iterate by iterator', function () {

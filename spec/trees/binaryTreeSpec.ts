@@ -1,17 +1,17 @@
-import { Structure as BinaryTree, TreeTraversal } from '../../src/trees/binaryTree';
+import { BinaryTree } from '../../src/trees/binaryTree';
 
 describe('Binary tree', function () {
     describe('Add methods', function () {
         let binaryTree;
 
         beforeEach(function () {
-            binaryTree = new BinaryTree();
+            binaryTree = new BinaryTree.Structure();
         });
 
         it('add root node', function () {
             binaryTree.addRoot('root');
 
-            let iterator = binaryTree.getIterator(TreeTraversal.BreadthFirst);
+            let iterator = binaryTree.getIterator(BinaryTree.TreeTraversal.BreadthFirst);
             expect(iterator.next()).toBe('root');
             expect(binaryTree.currentNode).toBe(binaryTree.rootNode);
 
@@ -26,7 +26,7 @@ describe('Binary tree', function () {
             expect(binaryTree.currentNode).toBe(binaryTree.rootNode);
             expect(binaryTree.currentNode.leftChild.parent).toBe(binaryTree.rootNode);
 
-            let iterator = binaryTree.getIterator(TreeTraversal.BreadthFirst);
+            let iterator = binaryTree.getIterator(BinaryTree.TreeTraversal.BreadthFirst);
             expect(iterator.next()).toBe('root');
             expect(iterator.next()).toBe('leftChild');
 
@@ -42,7 +42,7 @@ describe('Binary tree', function () {
             expect(binaryTree.currentNode).toBe(binaryTree.rootNode);
             expect(binaryTree.currentNode.rightChild.parent).toBe(binaryTree.rootNode);
 
-            let iterator = binaryTree.getIterator(TreeTraversal.BreadthFirst);
+            let iterator = binaryTree.getIterator(BinaryTree.TreeTraversal.BreadthFirst);
             expect(iterator.next()).toBe('root');
             expect(iterator.next()).toBe('rightChild');
 
@@ -57,7 +57,7 @@ describe('Binary tree', function () {
         let binaryTree;
 
         beforeEach(function () {
-            binaryTree = new BinaryTree();
+            binaryTree = new BinaryTree.Structure();
             binaryTree.addRoot('root');
         });
 
@@ -108,7 +108,7 @@ describe('Binary tree', function () {
         let binaryTree;
 
         beforeEach(function () {
-            binaryTree = new BinaryTree();
+            binaryTree = new BinaryTree.Structure();
         });
 
         it('clear binary tree', function () {
@@ -131,7 +131,7 @@ describe('Binary tree', function () {
         let binaryTree;
 
         beforeEach(function () {
-            binaryTree = new BinaryTree();
+            binaryTree = new BinaryTree.Structure();
         });
 
         it('iterate by iterator', function () {
@@ -146,7 +146,7 @@ describe('Binary tree', function () {
             binaryTree.addLeftChild('3');
             binaryTree.addRightChild('4');
 
-            let iterator = binaryTree.getIterator(TreeTraversal.BreadthFirst);
+            let iterator = binaryTree.getIterator(BinaryTree.TreeTraversal.BreadthFirst);
             expect(iterator.next()).toBe('root');
             expect(iterator.next()).toBe('leftChild');
             expect(iterator.next()).toBe('rightChild');
@@ -155,7 +155,7 @@ describe('Binary tree', function () {
             expect(iterator.next()).toBe('3');
             expect(iterator.next()).toBe('4');
 
-            iterator = binaryTree.getIterator(TreeTraversal.DepthFirst);
+            iterator = binaryTree.getIterator(BinaryTree.TreeTraversal.DepthFirst);
             expect(iterator.next()).toBe('root');
             expect(iterator.next()).toBe('leftChild');
             expect(iterator.next()).toBe('1');

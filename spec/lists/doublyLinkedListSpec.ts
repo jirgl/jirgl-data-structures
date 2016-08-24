@@ -1,11 +1,11 @@
-import { Structure as DoublyLinkedList } from '../../src/lists/doublyLinkedList';
+import { DoublyLinkedList } from '../../src/lists/doublyLinkedList';
 
 describe('Doubly Linked list', function () {
     describe('Add methods', function () {
         let doublyLinkedList;
 
         beforeEach(function () {
-            doublyLinkedList = new DoublyLinkedList();
+            doublyLinkedList = new DoublyLinkedList.Structure();
         });
 
         it('add first item', function () {
@@ -111,7 +111,7 @@ describe('Doubly Linked list', function () {
         let doublyLinkedList;
 
         beforeEach(function () {
-            doublyLinkedList = new DoublyLinkedList();
+            doublyLinkedList = new DoublyLinkedList.Structure();
             doublyLinkedList.addLastItem('one', 'dataOfOne');
             doublyLinkedList.addLastItem('two', 'dataOfTwo');
             doublyLinkedList.addLastItem('three', 'dataOfThree');
@@ -197,7 +197,7 @@ describe('Doubly Linked list', function () {
         let doublyLinkedList;
 
         beforeEach(function () {
-            doublyLinkedList = new DoublyLinkedList();
+            doublyLinkedList = new DoublyLinkedList.Structure();
         });
 
         it('clear doubly linked list', function () {
@@ -221,7 +221,7 @@ describe('Doubly Linked list', function () {
         let doublyLinkedList;
 
         beforeEach(function () {
-            doublyLinkedList = new DoublyLinkedList();
+            doublyLinkedList = new DoublyLinkedList.Structure();
         });
 
         it('iterate by iterator', function () {

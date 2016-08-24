@@ -1,11 +1,11 @@
-﻿import { Structure as Stack } from '../../src/lists/stack';
+﻿import { Stack } from '../../src/lists/stack';
 
 describe('Stack', function () {
     describe('Push', function () {
         let stack;
 
         beforeEach(function () {
-            stack = new Stack();
+            stack = new Stack.Structure();
         });
 
         it('push', function () {
@@ -24,7 +24,7 @@ describe('Stack', function () {
         let stack;
 
         beforeEach(function () {
-            stack = new Stack();
+            stack = new Stack.Structure();
             stack.push('first');
             stack.push('second');
             stack.push('third');
@@ -41,7 +41,7 @@ describe('Stack', function () {
         let stack;
 
         beforeEach(function () {
-            stack = new Stack();
+            stack = new Stack.Structure();
         });
 
         it('clear stack', function () {

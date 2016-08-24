@@ -1,11 +1,11 @@
-﻿import { Structure as Queue } from '../../src/lists/queue';
+﻿import { Queue } from '../../src/lists/queue';
 
 describe('Queue', function () {
     describe('Enqueue', function () {
         let que;
 
         beforeEach(function () {
-            que = new Queue();
+            que = new Queue.Structure();
         });
 
         it('enqueue', function () {
@@ -24,7 +24,7 @@ describe('Queue', function () {
         let que;
 
         beforeEach(function () {
-            que = new Queue();
+            que = new Queue.Structure();
             que.enqueue('first');
             que.enqueue('second');
             que.enqueue('third');
@@ -41,7 +41,7 @@ describe('Queue', function () {
         let que;
 
         beforeEach(function () {
-            que = new Queue();
+            que = new Queue.Structure();
         });
 
         it('clear queue', function () {
