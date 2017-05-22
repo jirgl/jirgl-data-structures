@@ -2,10 +2,26 @@
     "compilerOptions": {
         "module": "commonjs",
         "noImplicitAny": true,
-        "removeComments": true,
-        "preserveConstEnums": true,
+        "removeComments": false,
+        "preserveConstEnums": false,
         "sourceMap": true,
-        "target": "es6",
-        "moduleResolution": "node"
-    }
+        "target": "es5",
+        "moduleResolution": "node",
+        "declaration": false,
+        "lib": [
+            "es5",
+            "dom",
+            "es2015.core",
+            "es2015.promise"
+        ],
+        "noLib": false,
+        "experimentalDecorators": true
+    },
+    "include": [
+        "**/*"
+    ],
+    "compileOnSave": false,
+    "files": [
+        "/usr/local/lib/node_modules/bobril-build/typings/jasmine/jasmine.d.ts"
+    ]
 }

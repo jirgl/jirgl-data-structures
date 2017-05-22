@@ -23,5 +23,8 @@
   "homepage": "https://github.com/jirgl/jirgl-structures#readme",
   "devDependencies": {
     "jasmine-es6": "^0.2.2"
+  },
+  "resolutions": {
+    "jsesc": "1.3.0"
   }
 }
