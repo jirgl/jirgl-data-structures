@@ -1,2 +1,11 @@
-# jirgl-structures
-Preview of using and basic graphical extension: https://jirgl.github.io/DataStructures/
+# jirgl-data-structures
+Processed data structures:
+
+  *Arrays
+  *Lists
+    *Singly Linked List
+    *Doubly Linked List
+    *Stack
+    *Queue
+  *Trees
+    *Binary Tree
