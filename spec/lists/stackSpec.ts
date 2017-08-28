@@ -1,8 +1,10 @@
-﻿import { Stack } from '../../src/lists/stack';
+﻿import 'mocha';
+import { expect } from 'chai';
+import { Stack } from '../../src/lists/stack';
 
 describe('Stack', function () {
     describe('Push', function () {
-        let stack;
+        let stack: any;
 
         beforeEach(function () {
             stack = new Stack.Structure();
@@ -14,14 +16,14 @@ describe('Stack', function () {
             stack.push('third');
 
             let iterator = stack.getIterator();
-            expect(iterator.next()).toBe('third');
-            expect(iterator.next()).toBe('second');
-            expect(iterator.next()).toBe('first');
+            expect(iterator.next()).equal('third');
+            expect(iterator.next()).equal('second');
+            expect(iterator.next()).equal('first');
         });
     });
 
     describe('Pop', function () {
-        let stack;
+        let stack: any;
 
         beforeEach(function () {
             stack = new Stack.Structure();
@@ -31,14 +33,14 @@ describe('Stack', function () {
         });
 
         it('pop', function () {
-            expect(stack.pop()).toBe('third');
-            expect(stack.pop()).toBe('second');
-            expect(stack.pop()).toBe('first');
+            expect(stack.pop()).equal('third');
+            expect(stack.pop()).equal('second');
+            expect(stack.pop()).equal('first');
         });
     });
 
     describe('Other functions', function () {
-        let stack;
+        let stack: any;
 
         beforeEach(function () {
             stack = new Stack.Structure();
@@ -46,17 +48,17 @@ describe('Stack', function () {
 
         it('clear stack', function () {
             stack.push('last');
-            expect(stack.list.firstItem.data).toBe('last');
+            expect(stack.list.firstItem.data).equal('last');
 
             stack.clear();
-            expect(stack.list.firstItem).toEqual(undefined);
+            expect(stack.list.firstItem).equal(undefined);
         });
 
         it('is stack empty', function () {
-            expect(stack.isEmpty()).toBeTruthy();
+            expect(stack.isEmpty()).equal(true);
 
             stack.push('last');
-            expect(stack.isEmpty()).toBeFalsy();
+            expect(stack.isEmpty()).equal(false);
         });
     });
 });

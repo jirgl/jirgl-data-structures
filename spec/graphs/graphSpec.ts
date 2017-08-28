@@ -1,3 +1,5 @@
+import 'mocha';
+import { expect } from 'chai';
 import { Graph } from '../../src/graphs/graph';
 
 describe('Graph', () => {
@@ -23,11 +25,11 @@ describe('Graph', () => {
         graph.addEdge(e4);
         graph.addEdge(e5);
 
-        expect(graph.getVertices()).toEqual([v1, v2, v3, v4]);
-        expect(graph.getAdjacentEdges(v1)).toEqual([e1, e4]);
-        expect(graph.getAdjacentEdges(v2)).toEqual([e1, e2, e5]);
-        expect(graph.getAdjacentEdges(v3)).toEqual([e2, e3]);
-        expect(graph.getAdjacentEdges(v4)).toEqual([e3, e4, e5]);
+        expect(graph.getVertices()).deep.equal([v1, v2, v3, v4]);
+        expect(graph.getAdjacentEdges(v1)).deep.equal([e1, e4]);
+        expect(graph.getAdjacentEdges(v2)).deep.equal([e1, e2, e5]);
+        expect(graph.getAdjacentEdges(v3)).deep.equal([e2, e3]);
+        expect(graph.getAdjacentEdges(v4)).deep.equal([e3, e4, e5]);
     });
 
 });

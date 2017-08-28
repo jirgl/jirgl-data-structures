@@ -100,7 +100,7 @@ export module KdRangeTree {
             const copy = obj.constructor();
             for (const attr in obj) {
                 if (obj.hasOwnProperty(attr)) {
-                    copy[attr] = obj[attr];
+                    copy[attr] = obj as any as { [key: string]: string };
                 }
             }
 
