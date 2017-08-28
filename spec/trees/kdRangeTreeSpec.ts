@@ -377,7 +377,7 @@ describe('Range tree', function () {
         });
     });
 
-    describe.skip('Incomplete tree', function () {
+    /*describe('Incomplete tree', function () {
         let initData = [z, y, w];
 
         let subtree1: any = [
@@ -495,5 +495,5 @@ describe('Range tree', function () {
                 expect(result.length).equal(1);
             });
         });
-    });
+    });*/
 });
