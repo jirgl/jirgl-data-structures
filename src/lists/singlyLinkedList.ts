@@ -1,6 +1,6 @@
 ﻿import { IIterable, IIterator } from '../iterator';
 
-export module LinkedList {
+export module SinglyLinkedList {
     export class Item<TKey, TData> {
         key: TKey;
         data: TData;
