@@ -1,5 +1,5 @@
 {
-  "name": "jirgl-structures",
+  "name": "jirgl-data-structures",
   "version": "0.1.0",
   "description": "library with basic data structures",
   "main": "index.js",
@@ -8,19 +8,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jirgl/jirgl-structures.git"
+    "url": "git+https://github.com/jirgl/jirgl-data-structures.git"
   },
   "keywords": [
     "data-structures",
+    "arrays",
     "lists",
     "trees"
   ],
   "author": "Jakub Jirgl",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jirgl/jirgl-structures/issues"
+    "url": "https://github.com/jirgl/jirgl-data-structures/issues"
   },
-  "homepage": "https://github.com/jirgl/jirgl-structures#readme",
+  "homepage": "https://github.com/jirgl/jirgl-data-structures#readme",
   "devDependencies": {
     "@types/chai": "^4.0.4",
     "@types/mocha": "^2.2.42",

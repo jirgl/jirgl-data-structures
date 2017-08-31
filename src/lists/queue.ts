@@ -18,10 +18,10 @@ export module Queue {
         }
 
         enqueue(t: T): void {
-            this.list.addLastItem(undefined, t);
+            this.list.addLastItem(t, t);
         }
 
-        dequeue(): T {
+        dequeue(): T | undefined {
             return this.list.removeFirstItem();
         }
 

@@ -2,7 +2,7 @@
 
 export module KdRangeTree {
     export interface IRangeObject<T> {
-        data: T;
+        data: T | undefined;
         ranges: number[];
     }
 
@@ -11,14 +11,14 @@ export module KdRangeTree {
     }
 
     export class RangeNode<T> {//TODO remove "export"
-        rangeData: IRangeObject<T>;
-        median: number;
-        subtree: Tree<T>;
+        rangeData: IRangeObject<T> | undefined;
+        median: number | undefined;
+        subtree: Tree<T> | undefined;
     }
 
     export class Structure<T> {
         private dimensions: number;
-        tree: Tree<T>;//TODO add "private"
+        tree: Tree<T> | undefined;//TODO add "private"
 
         clear() {
             this.tree = undefined;
@@ -33,7 +33,7 @@ export module KdRangeTree {
         }
 
         private buildDimension(array: IRangeObject<T>[], currentDimension: number,
-            comparisons: ((t1: IRangeObject<T>, t2: IRangeObject<T>) => number)[]): Tree<T> {
+            comparisons: ((t1: IRangeObject<T>, t2: IRangeObject<T>) => number)[]): Tree<T> | undefined {
 
             if (comparisons.length === 0)
                 return undefined;
@@ -49,6 +49,7 @@ export module KdRangeTree {
 
             while (!que.isEmpty()) {
                 const subtree = que.dequeue();
+                if (!subtree) return undefined;
                 if (subtree.length > 1) {
                     const splittedArray = this.splitArray(subtree.slice());
                     que.enqueue(splittedArray[0]);
@@ -72,7 +73,10 @@ export module KdRangeTree {
             return tree;
         }
 
-        private createRangeNode(data: IRangeObject<T>, median: number, subtree: Tree<T>): RangeNode<T> {
+        private createRangeNode(
+            data: IRangeObject<T> | undefined,
+            median: number | undefined,
+            subtree: Tree<T> | undefined): RangeNode<T> {
             const node = new RangeNode<T>();
             node.rangeData = data;
             node.median = median;
@@ -134,29 +138,31 @@ export module KdRangeTree {
         }
 
         private findInDimension(rangesFrom: number[], rangesTo: number[],
-            currentRange: number, tree: Tree<T>): T[] {
-            let index = 1;
+            currentRange: number, tree: Tree<T> | undefined): T[] {
+            if (!tree) return [];
 
+            let index = 1;
             while (true) {
                 const rangeFrom = rangesFrom[currentRange];
                 const rangeTo = rangesTo[currentRange];
 
-                if (tree.rawData[index - 1].rangeData === undefined) {
-                    if (rangeTo < tree.rawData[index - 1].median) {
+                const rawData = tree.rawData[index - 1];
+                if (!rawData.rangeData && rawData.median) {
+                    if (rangeTo < rawData.median) {
                         index *= 2;
-                    } else if (rangeFrom > tree.rawData[index - 1].median) {
+                    } else if (rangeFrom > rawData.median) {
                         index *= 2;
                         index++;
-                    } else if (rangeFrom <= tree.rawData[index - 1].median && rangeTo >= tree.rawData[index - 1].median) {
-                        if (tree.rawData[index - 1].subtree !== undefined) {
-                            return this.findInDimension(rangesFrom, rangesTo, ++currentRange, tree.rawData[index - 1].subtree);
+                    } else if (rangeFrom <= rawData.median && rangeTo >= rawData.median) {
+                        if (rawData.subtree !== undefined) {
+                            return this.findInDimension(rangesFrom, rangesTo, ++currentRange, rawData.subtree);
                         } else {
                             return this.findInTree(rangesFrom, rangesTo, index, tree);
                         }
                     }
-                } else {
-                    return this.isInRange(tree.rawData[index - 1].rangeData, rangesFrom, rangesTo)
-                        ? [tree.rawData[index - 1].rangeData.data]
+                } else if (rawData.rangeData) {
+                    return (rawData.rangeData.data && this.isInRange(rawData.rangeData, rangesFrom, rangesTo))
+                        ? [rawData.rangeData.data]
                         : [];
                 }
             }
@@ -174,9 +180,10 @@ export module KdRangeTree {
                     const count = Math.pow(2, depth);
                     const result: T[] = [];
                     for (let i = currentIndex - 1; i < currentIndex - 1 + count; i++) {
-                        if (tree.rawData[i].rangeData.data &&
-                            this.isInRange(tree.rawData[i].rangeData, rangesFrom, rangesTo)) {
-                            result.push(tree.rawData[i].rangeData.data);
+                        const rawData = tree.rawData[i];
+                        if (rawData.rangeData && rawData.rangeData.data &&
+                            this.isInRange(rawData.rangeData, rangesFrom, rangesTo)) {
+                            result.push(rawData.rangeData.data);
                         }
                     }
 

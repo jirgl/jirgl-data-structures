@@ -4,7 +4,7 @@ export module SinglyLinkedList {
     export class Item<TKey, TData> {
         key: TKey;
         data: TData;
-        next: Item<TKey, TData>;
+        next: Item<TKey, TData> | undefined;
 
         constructor(key: TKey, data: TData) {
             this.key = key;
@@ -13,9 +13,9 @@ export module SinglyLinkedList {
     }
 
     export class Structure<TKey, TData> implements IIterable<TData> {
-        protected currentItem: Item<TKey, TData>;
-        protected firstItem: Item<TKey, TData>;
-        protected lastItem: Item<TKey, TData>;
+        protected currentItem: Item<TKey, TData> | undefined;
+        protected firstItem: Item<TKey, TData> | undefined;
+        protected lastItem: Item<TKey, TData> | undefined;
 
         clear(): void {
             this.currentItem = this.firstItem = this.lastItem = undefined;
@@ -73,16 +73,16 @@ export module SinglyLinkedList {
             } else {
                 const previousItem = this.findPrevious(this.currentItem);
                 item.next = this.currentItem;
-                previousItem.next = item;
+                if (previousItem) previousItem.next = item;
                 this.currentItem = item;
             }
         }
 
-        find(key: TKey): TData {
+        find(key: TKey): TData | undefined {
             if (!this.firstItem)
                 return undefined;
 
-            let currentItem = this.firstItem;
+            let currentItem: Item<TKey, TData> | undefined = this.firstItem;
             while (currentItem) {
                 if (currentItem.key === key)
                     return currentItem.data;
@@ -93,12 +93,12 @@ export module SinglyLinkedList {
             return undefined;
         }
 
-        private findPrevious(item: Item<TKey, TData>): Item<TKey, TData> {
+        private findPrevious(item: Item<TKey, TData>): Item<TKey, TData> | undefined {
             if (!this.firstItem)
                 return undefined;
 
-            let previousItem: Item<TKey, TData> = undefined;
-            let currentItem = this.firstItem;
+            let previousItem: Item<TKey, TData> | undefined = undefined;
+            let currentItem: Item<TKey, TData> | undefined = this.firstItem;
             while (currentItem) {
                 if (currentItem === item)
                     return previousItem;
@@ -110,34 +110,34 @@ export module SinglyLinkedList {
             return undefined;
         }
 
-        getCurrentItem(): TData {
-            return this.currentItem.data;
+        getCurrentItem(): TData | undefined {
+            return this.currentItem && this.currentItem.data;
         }
 
-        getFirstItem(): TData {
-            return this.firstItem.data;
+        getFirstItem(): TData | undefined {
+            return this.firstItem && this.firstItem.data;
         }
 
-        getLastItem(): TData {
-            return this.lastItem.data;
+        getLastItem(): TData | undefined {
+            return this.lastItem && this.lastItem.data;
         }
 
-        getNextItem(): TData {
-            const nextItem = this.currentItem.next;
+        getNextItem(): TData | undefined {
+            const nextItem = this.currentItem && this.currentItem.next;
             return nextItem ? nextItem.data : undefined;
         }
 
-        getPreviousItem(): TData {
-            const previousItem = this.findPrevious(this.currentItem);
+        getPreviousItem(): TData | undefined {
+            const previousItem = this.currentItem && this.findPrevious(this.currentItem);
             return previousItem ? previousItem.data : undefined;
         }
 
-        removeKey(key: TKey): TData {
+        removeKey(key: TKey): TData | undefined {
             if (!this.firstItem)
                 return undefined;
 
-            let previousItem: Item<TKey, TData> = undefined;
-            let currentItem = this.firstItem;
+            let previousItem: Item<TKey, TData> | undefined = undefined;
+            let currentItem: Item<TKey, TData> | undefined = this.firstItem;
             while (currentItem) {
                 if (currentItem.key === key) {
                     if (previousItem) {
@@ -161,7 +161,7 @@ export module SinglyLinkedList {
             return undefined;
         }
 
-        removeCurrentItem(): TData {
+        removeCurrentItem(): TData | undefined {
             if (!this.currentItem)
                 return undefined;
 
@@ -178,7 +178,7 @@ export module SinglyLinkedList {
             }
         }
 
-        removeFirstItem(): TData {
+        removeFirstItem(): TData | undefined {
             if (!this.firstItem)
                 return undefined;
 
@@ -199,7 +199,7 @@ export module SinglyLinkedList {
             return itemData;
         }
 
-        removeLastItem(): TData {
+        removeLastItem(): TData | undefined {
             if (!this.lastItem)
                 return undefined;
 
@@ -209,7 +209,7 @@ export module SinglyLinkedList {
             } else {
                 const previousItem = this.findPrevious(this.lastItem);
                 const newLastItem = previousItem;
-                previousItem.next = undefined;
+                if (previousItem) previousItem.next = undefined;
 
                 if (this.lastItem === this.currentItem) {
                     this.currentItem = this.firstItem;
@@ -221,7 +221,7 @@ export module SinglyLinkedList {
             return itemData;
         }
 
-        removeNextItem(): TData {
+        removeNextItem(): TData | undefined {
             if (!this.currentItem || !this.currentItem.next) {
                 return undefined;
             } else if (this.currentItem.next === this.lastItem) {
@@ -236,8 +236,8 @@ export module SinglyLinkedList {
             }
         }
 
-        removePreviousItem(): TData {
-            const previousItem = this.findPrevious(this.currentItem);
+        removePreviousItem(): TData | undefined {
+            const previousItem = this.currentItem && this.findPrevious(this.currentItem);
             if (!previousItem)
                 return undefined;
 
@@ -248,7 +248,7 @@ export module SinglyLinkedList {
             } else {
                 const itemData = previousItem.data;
                 const newPreviousItem = this.findPrevious(previousItem);
-                newPreviousItem.next = this.currentItem;
+                if (newPreviousItem) newPreviousItem.next = this.currentItem;
                 previousItem.next = undefined;
 
                 return itemData;
@@ -261,10 +261,10 @@ export module SinglyLinkedList {
     }
 
     export class Iterator<TKey, TData> implements IIterator<TData> {
-        protected currentItem: Item<TKey, TData>;
-        protected firstItem: Item<TKey, TData>;
+        protected currentItem: Item<TKey, TData> | undefined;
+        protected firstItem: Item<TKey, TData> | undefined;
 
-        constructor(firstItem: Item<TKey, TData>) {
+        constructor(firstItem: Item<TKey, TData> | undefined) {
             this.firstItem = this.currentItem = firstItem;
         }
 
@@ -273,6 +273,8 @@ export module SinglyLinkedList {
         }
 
         next(): TData {
+            if (!this.currentItem) throw 'end of collection';
+
             const current = this.currentItem;
             this.currentItem = this.currentItem.next;
             return current.data;

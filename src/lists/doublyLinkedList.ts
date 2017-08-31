@@ -4,8 +4,8 @@ export module DoublyLinkedList {
     export class Item<TKey, TData> {
         key: TKey;
         data: TData;
-        next: Item<TKey, TData>;
-        previous: Item<TKey, TData>;
+        next: Item<TKey, TData> | undefined;
+        previous: Item<TKey, TData> | undefined;
 
         constructor(key: TKey, data: TData) {
             this.key = key;
@@ -14,9 +14,9 @@ export module DoublyLinkedList {
     }
 
     export class Structure<TKey, TData> implements IIterable<TData> {
-        protected currentItem: Item<TKey, TData>;
-        protected firstItem: Item<TKey, TData>;
-        protected lastItem: Item<TKey, TData>;
+        protected currentItem: Item<TKey, TData> | undefined;
+        protected firstItem: Item<TKey, TData> | undefined;
+        protected lastItem: Item<TKey, TData> | undefined;
 
         clear(): void {
             this.currentItem = this.firstItem = this.lastItem = undefined;
@@ -62,7 +62,7 @@ export module DoublyLinkedList {
             } else {
                 item.next = this.currentItem.next;
                 item.previous = this.currentItem;
-                this.currentItem.next.previous = item;
+                if (this.currentItem.next) this.currentItem.next.previous = item;
                 this.currentItem.next = item;
                 this.currentItem = item;
             }
@@ -78,43 +78,43 @@ export module DoublyLinkedList {
             } else {
                 item.next = this.currentItem;
                 item.previous = this.currentItem.previous;
-                this.currentItem.previous.next = item;
+                if (this.currentItem.previous) this.currentItem.previous.next = item;
                 this.currentItem.previous = item;
                 this.currentItem = item;
             }
         }
 
-        getCurrentItem(): TData {
-            return this.currentItem.data;
+        getCurrentItem(): TData | undefined {
+            return this.currentItem && this.currentItem.data;
         }
 
-        getFirstItem(): TData {
-            return this.firstItem.data;
+        getFirstItem(): TData | undefined {
+            return this.firstItem && this.firstItem.data;
         }
 
-        getLastItem(): TData {
-            return this.lastItem.data;
+        getLastItem(): TData | undefined {
+            return this.lastItem && this.lastItem.data;
         }
 
-        getNextItem(): TData {
-            return this.currentItem.next.data;
+        getNextItem(): TData | undefined {
+            return this.currentItem && this.currentItem.next && this.currentItem.next.data;
         }
 
-        getPreviousItem(): TData {
-            return this.currentItem.previous.data;
+        getPreviousItem(): TData | undefined {
+            return this.currentItem && this.currentItem.previous && this.currentItem.previous.data;
         }
 
-        removeKey(key: TKey): TData {
+        removeKey(key: TKey): TData | undefined {
             if (!this.firstItem)
                 return undefined;
 
-            let previousItem: Item<TKey, TData> = undefined;
-            let currentItem = this.firstItem;
+            let previousItem: Item<TKey, TData> | undefined = undefined;
+            let currentItem: Item<TKey, TData> | undefined = this.firstItem;
             while (currentItem) {
                 if (currentItem.key === key) {
                     if (previousItem) {
                         previousItem.next = currentItem.next;
-                        currentItem.next.previous = previousItem;
+                        if (currentItem.next) currentItem.next.previous = previousItem;
                         currentItem.previous = currentItem.previous = undefined;
                     } else {
                         //current item is first item
@@ -135,7 +135,7 @@ export module DoublyLinkedList {
             return undefined;
         }
 
-        removeCurrentItem(): TData {
+        removeCurrentItem(): TData | undefined {
             if (!this.currentItem)
                 return undefined;
 
@@ -145,8 +145,8 @@ export module DoublyLinkedList {
                 return this.removeLastItem();
             } else {
                 const itemData = this.currentItem.data;
-                this.currentItem.previous.next = this.currentItem.next;
-                this.currentItem.next.previous = this.currentItem.previous;
+                if (this.currentItem.previous) this.currentItem.previous.next = this.currentItem.next;
+                if (this.currentItem.next) this.currentItem.next.previous = this.currentItem.previous;
                 this.currentItem.previous = undefined;
                 this.currentItem.next = undefined;
                 this.currentItem = this.firstItem;
@@ -155,7 +155,7 @@ export module DoublyLinkedList {
             }
         }
 
-        removeFirstItem(): TData {
+        removeFirstItem(): TData | undefined {
             if (!this.firstItem)
                 return undefined;
 
@@ -164,7 +164,7 @@ export module DoublyLinkedList {
                 this.firstItem = this.lastItem = this.currentItem = undefined;
             } else {
                 const newFirstItem = this.firstItem.next;
-                this.firstItem.next.previous = undefined;
+                if (this.firstItem.next) this.firstItem.next.previous = undefined;
                 this.firstItem.next = undefined;
 
                 if (this.firstItem === this.currentItem) {
@@ -177,7 +177,7 @@ export module DoublyLinkedList {
             return itemData;
         }
 
-        removeLastItem(): TData {
+        removeLastItem(): TData | undefined {
             if (!this.lastItem)
                 return undefined;
 
@@ -186,7 +186,7 @@ export module DoublyLinkedList {
                 this.firstItem = this.lastItem = this.currentItem = undefined;
             } else {
                 const newLastItem = this.lastItem.previous;
-                this.lastItem.previous.next = undefined;
+                if (this.lastItem.previous) this.lastItem.previous.next = undefined;
                 this.lastItem.previous = undefined;
 
                 if (this.lastItem === this.currentItem) {
@@ -199,7 +199,7 @@ export module DoublyLinkedList {
             return itemData;
         }
 
-        removeNextItem(): TData {
+        removeNextItem(): TData | undefined {
             if (!this.currentItem || !this.currentItem.next) {
                 return undefined;
             } else if (this.currentItem.next === this.lastItem) {
@@ -207,7 +207,7 @@ export module DoublyLinkedList {
             } else {
                 const itemData = this.currentItem.next.data;
                 const newNextItem = this.currentItem.next.next;
-                this.currentItem.next.next.previous = this.currentItem;
+                if (this.currentItem.next.next) this.currentItem.next.next.previous = this.currentItem;
                 this.currentItem.next.next = undefined;
                 this.currentItem.next.previous = undefined;
                 this.currentItem.next = newNextItem;
@@ -216,7 +216,7 @@ export module DoublyLinkedList {
             }
         }
 
-        removePreviousItem(): TData {
+        removePreviousItem(): TData | undefined {
             if (!this.currentItem || !this.currentItem.previous) {
                 return undefined;
             } else if (this.currentItem.previous === this.firstItem) {
@@ -224,7 +224,7 @@ export module DoublyLinkedList {
             } else {
                 const itemData = this.currentItem.previous.data;
                 const newPreviousItem = this.currentItem.previous.previous;
-                this.currentItem.previous.previous.next = this.currentItem;
+                if (this.currentItem.previous.previous) this.currentItem.previous.previous.next = this.currentItem;
                 this.currentItem.previous.previous = undefined;
                 this.currentItem.previous.next = undefined;
                 this.currentItem.previous = newPreviousItem;
@@ -239,10 +239,10 @@ export module DoublyLinkedList {
     }
 
     export class Iterator<TKey, TData> implements IIterator<TData> {
-        protected currentItem: Item<TKey, TData>;
-        protected firstItem: Item<TKey, TData>;
+        protected currentItem: Item<TKey, TData> | undefined;
+        protected firstItem: Item<TKey, TData> | undefined;
 
-        constructor(firstItem: Item<TKey, TData>) {
+        constructor(firstItem: Item<TKey, TData> | undefined) {
             this.firstItem = this.currentItem = firstItem;
         }
 
@@ -251,8 +251,9 @@ export module DoublyLinkedList {
         }
 
         next(): TData {
+            if (!this.currentItem) throw 'end of collection';
             const current = this.currentItem;
-            this.currentItem = this.currentItem.next;
+            this.currentItem = this.currentItem && this.currentItem.next;
             return current.data;
         }
 

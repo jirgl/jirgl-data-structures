@@ -18,10 +18,10 @@ export module Stack {
         }
 
         push(t: T): void {
-            this.list.addFirstItem(undefined, t);
+            this.list.addFirstItem(t, t);
         }
 
-        pop(): T {
+        pop(): T | undefined {
             return this.list.removeFirstItem();
         }
 
