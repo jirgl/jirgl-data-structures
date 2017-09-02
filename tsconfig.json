@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "sourceMap": true,
+        "outDir": "./dist",
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
@@ -9,9 +10,10 @@
         "noUnusedParameters": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
-        "strictNullChecks": true
+        "strictNullChecks": true,
+        "declaration": true
     },
-    "include": [
-        "**/*"
+    "exclude": [
+        "./spec/**/*"
     ]
 }
