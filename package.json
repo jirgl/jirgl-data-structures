@@ -1,6 +1,6 @@
 {
   "name": "jirgl-data-structures",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "library with basic data structures",
   "main": "index.js",
   "scripts": {
