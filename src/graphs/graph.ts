@@ -1,7 +1,8 @@
 export module Graph {
     export type Vertex = {
         id: string;
-        position: [number, number]
+        position: [number, number];
+        evaluation?: number;
     }
 
     export type Edge = {
